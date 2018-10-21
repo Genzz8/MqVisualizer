@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>MqVisualizer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/main.css}"
+	href="../../css/main.css" />
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Spring Boot</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/">Home</a></li>
+					<li><a href="/jmsMessages">Lista Messaggi MQ</a></li>
+					<li><a href="/sendMessage">Inserisci Messaggio</a></li>
+					<li class="active"><a href="/uploadMessage">Upload Messaggio</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="starter-template">
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6">
+					<form method="POST" enctype="multipart/form-data" th:action="@{/uploadMessage}">
+							<h3>Carica un file Json con i MessaggiMq da spedire</h3>
+							<button type="button" class="helpo btn " data-toggle="modal" data-target="#modalHelp">
+							  ?
+							</button>
+							<div class="form-group">
+								<div class="input-group">
+	                				<label class="input-group-btn">
+	                    				<span class="btn btn-primary">
+	                        			Browse&hellip; <input name="fileParam" type="file" style="display: none;" multiple="multiple" />
+	                    				</span>
+	                				</label>
+	                				<input type="text" class="form-control" readonly="readonly" />
+	            				</div>
+	            				<div class="row" > &nbsp; </div>
+	            				<div class="input-group">
+	                				<label class="input-group-btn">
+	                    				<span class="btn btn-primary">
+	                        			FileDati&hellip; <input name="fileDati" type="file" style="display: none;" multiple="multiple" />
+	                    				</span>
+	                				</label>
+	                				<input type="text" class="form-control" readonly="readonly" />
+	            				</div>
+	            			</div>
+            				<button  type="submit" value="Upload" >Upload</button>
+					</form>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+		</div>
+
+	<div class="modal fade" id="modalHelp" tabindex="-1" role="dialog" aria-labelledby="helpUpload" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Esempio formato upload</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      <samp>
+	      { <br></br>
+			&nbsp;"list":[<br></br>
+				&nbsp;&nbsp;&nbsp;{<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc":"descrizione",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"correlationId":"18R3000000003",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"messagePreview":"messaggio parametri",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"message":"messaggio dati",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"paramQueue":"nome coda parametri (XX.XXX.XXX.....)",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataQueue":"nome coda dati (XX.XXX.XXX.....)"<br></br>
+				&nbsp;&nbsp;&nbsp;},<br></br>
+				&nbsp;&nbsp;&nbsp;{<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc":"descrizione",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"correlationId":"18R3000000003",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"messagePreview":"messaggio parametri",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"message":"messaggio dati",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"paramQueue":"nome coda parametri (XX.XXX.XXX.....)",<br></br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataQueue":"nome coda dati (XX.XXX.XXX.....)"<br></br>
+				&nbsp;&nbsp;&nbsp;},<br></br>
+				&nbsp;]<br></br>
+			}<br></br>
+			</samp>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+	</div>
+	<!-- /.container -->
+	
+	<script type="text/javascript"
+		src="../../jquery-3.3.1.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+
+	<script type="text/javascript">
+		$(".hoverBlu ").click(function() {
+			$("#paramQueue").val($( this ).children(".paramQ")[0].innerHTML)
+			$("#dataQueue").val($( this ).children(".dataQ")[0].innerHTML) 
+		});
+		
+	    $(function() {
+
+	    	  // We can attach the `fileselect` event to all file inputs on the page
+	    	  $(document).on('change', ':file', function() {
+	    	    var input = $(this),
+	    	        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+	    	        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+	    	    input.trigger('fileselect', [numFiles, label]);
+	    	  });
+
+	    	  // We can watch for our custom `fileselect` event like this
+	    	  $(document).ready( function() {
+	    	      $(':file').on('fileselect', function(event, numFiles, label) {
+
+	    	          var input = $(this).parents('.input-group').find(':text'),
+	    	              log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+	    	          if( input.length ) {
+	    	              input.val(log);
+	    	          } else {
+	    	              if( log ) alert(log);
+	    	          }
+
+	    	      });
+	    	  });
+	    	  
+	    	});
+	</script>
+
+</body>
+</html>

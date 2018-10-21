@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot Thymeleaf Hello World Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/main.css}"
+	href="../../css/main.css" />
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Spring Boot</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/">Home</a></li>
+					<li><a href="/jmsMessages">Lista Messaggi MQ</a></li>
+					<li class="active"><a href="/sendMessage">Inserisci Messaggio</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+
+		<div class="starter-template">
+		<div class="dropdown">
+		  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		   Scegli una coppia predefinita
+		  </button>
+		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		  		<ul class="list-group">
+					<li class="dropdown-item list-group-item hoverBlu" th:each = "queue : ${defQueues}" >
+						<p class="paramQ" th:utext="${queue.paramQueue}"></p>
+						<p class="dataQ" th:utext="${queue.dataQueue}"></p>
+					</li>
+				</ul>
+		  </div>
+		</div>
+		</div>
+	
+		<div class="starter-template">
+			<form action="#" th:action="@{/sendMessageStart}" th:object="${mqMessage}" method="post">
+				<div class="form-group">
+					<label for="corrId">Coda Parametri</label>
+					<input readonly="readonly" class="form-control" id="paramQueue" type="text" th:field="*{paramQueue}" />
+					<label for="corrId">Coda Dati</label>
+					<input readonly="readonly" class="form-control" id="dataQueue" type="text" th:field="*{dataQueue}" />
+					<label for="corrId">Correlation ID</label>
+					<input class="form-control" id="corrId" type="text" th:field="*{correlationId}" />
+					<label for="mqMessage">Mq Message</label>
+					<textarea id="mqMessage" class="form-control" rows="10" cols="10" th:field="*{messagePreview}"> </textarea>
+					<label for="mqMessage">Mq Message Dati</label>
+					<textarea id="mqMessage" class="form-control" rows="10" cols="10" th:field="*{message}"> </textarea>
+				</div>
+				<button class="btn btn-primary" name="addMessage" type="submit">Add Message</button>
+			</form>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+<script type="text/javascript"
+		src="../../jquery-3.3.1.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+$(".hoverBlu ").click(function() {
+	$("#paramQueue").val($( this ).children(".paramQ")[0].innerHTML)
+	$("#dataQueue").val($( this ).children(".dataQ")[0].innerHTML) 
+})
+</script>
+</body>
+</html>

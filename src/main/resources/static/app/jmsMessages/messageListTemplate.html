@@ -1,0 +1,10 @@
+<div class="starter-template">
+    <h3 th:utext="Messaggi trovati su coda: "></h3>
+    <ul class="list-group">
+        <li class="list-group-item mqMessage hoverBlu" ng-repeat="message in $ctrl.messages"  ng-click="$ctrl.getMessage($index)">
+            <p>{{message.correlationId}}</p>
+            <p class="preview">{{message.messagePreview}}</p>
+        </li>
+    </ul>
+    
+</div>

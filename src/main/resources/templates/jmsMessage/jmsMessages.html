@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" ng-app="jmsMessageApp">
+<head>
+<title>Spring Boot Thymeleaf Hello World Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+<link rel="stylesheet" th:href="@{/css/main.css}"
+	href="../../css/main.css" />
+
+<script type="text/javascript"
+	src="../../jquery-3.3.1.min.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="../webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script src="http://mqvisualizer/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script src="http://mqvisualizer/webjars/angularjs/1.7.4/angular.min.js"
+	th:src="@{/webjars/angularjs/1.7.4/angular.min.js}"></script>
+<script src="http://mqvisualizer/webjars/angular-resource/1.7.0/angular-resource.min.js"
+	th:src="@{/webjars/angular-resource/1.7.0/angular-resource.min.js}"></script>
+<script src="http://mqvisualizer/webjars/angular-ui-router/1.0.20/release/angular-ui-router.min.js"
+th:src="@{/webjars/angular-ui-router/1.0.20/release/angular-ui-router.min.js}"></script>
+<script type="text/javascript" src="../app/jmsMessages/jmsMessageApp.js"
+	th:src="@{/app/jmsMessages/jmsMessageApp.js}"></script>
+<script type="text/javascript" src="../app/jmsMessages/jmsMessageService.js"
+		th:src="@{/app/jmsMessages/jmsMessageService.js}"></script>
+<script type="text/javascript" src="../app/jmsMessages/jmsMessageDetailService.js"
+		th:src="@{/app/jmsMessages/jmsMessageDetailService.js}"></script>
+<script type="text/javascript" src="../app/jmsMessages/jmsQueueComponent.js"
+		th:src="@{/app/jmsMessages/jmsQueueComponent.js}"></script>
+<script type="text/javascript" src="../app/jmsMessages/jmsMessageListComponent.js"
+		th:src="@{/app/jmsMessages/jmsMessageListComponent.js}"></script>
+<script type="text/javascript" src="../app/jmsMessages/jmsMessageDetailComponent.js"
+		th:src="@{/app/jmsMessages/jmsMessageDetailComponent.js}"></script>
+<script type="text/javascript" src="../app/jmsMessages/jmsMessageRoute.js"
+		th:src="@{/app/jmsMessages/jmsMessageRoute.js}"></script>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Spring Boot</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/">Home</a></li>
+					<li class="active"><a href="/jmsMessages">Lista Messaggi MQ</a></li>
+					<li><a href="/sendMessage">Inserisci Messaggio</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<!-- <div ng-view="ng-view" ></div> -->
+		<ui-view></ui-view>
+		<div id="loaderWrap">
+				<div class="loader"></div>
+		</div>
+		
+	</div>
+
+	<script type="text/javascript">
+		$(".mqMessage").click(function() {
+			$(this).children("form").submit();
+		})
+		$('form').on('submit', function(event) {
+		    event.preventDefault();
+		    $("#loaderWrap").show();
+		    this.submit(); //now submit the form
+		});
+	</script>
+		
+
+</body>
+</html>
