@@ -5,6 +5,10 @@ angular.module('jmsMessageApp')
                 getMessage: {
                     method: 'POST',
                     interceptor : customInterceptor
+                },
+                deleteMessage: {
+                	method: 'DELETE',
+                	interceptor: customInterceptor
                 }
             });
         }
