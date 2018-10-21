@@ -4,27 +4,26 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
             <h2>Inserisci i nomi delle due code</h2>
-            <form action="#" th:action="@{/jmsMessages}" th:object="${queues}" method="post">
+            <form>
                 <div class="form-group">
                     <label for="paramQueue">Coda Parametri</label>
-                    <input class="form-control" id="paramQueue" value="{{$ctrl.paramQueue}}" type="text" th:field="*{paramQueue}" />
+                    <input class="form-control" id="paramQueue" value="{{$ctrl.paramQueue}}" type="text" />
                     <label for="dataQueue">Coda Dati</label>
-                    <input class="form-control" id="dataQueue" value="{{$ctrl.dataQueue}}" rows="10" cols="10" th:field="*{dataQueue}" />
+                    <input class="form-control" id="dataQueue" value="{{$ctrl.dataQueue}}" type="text" />
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="charset" 
-                          th:field="*{charset}" id="charset1" value="UTF-8" checked="checked" />
+                      <input class="form-check-input" type="radio" name="charset" id="charset1" value="UTF-8" checked="checked" />
                       <label class="form-check-label" for="charset1">
                         utf-8
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="charset" th:field="*{charset}" id="charset2" value="IBM1047" />
+                      <input class="form-check-input" type="radio" name="charset" id="charset2" value="IBM1047" />
                       <label class="form-check-label" for="charset2">
                         ibm1047
                       </label>
                     </div>
                 </div>
-                <button class="btn btn-primary" name="findMessaages" type="text" ng-click="$ctrl.getList">Cerca Messaggi</button>
+                <button class="btn btn-primary" name="findMessaages" ng-click="$ctrl.getList()">Cerca Messaggi</button>
             </form>
             </div>
             <div class="col-sm-3"></div>

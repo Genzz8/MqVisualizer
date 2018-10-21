@@ -14,7 +14,7 @@ angular.
                 self.paramQueue = self.queues[index].paramQueue;
                 self.dataQueue = self.queues[index].dataQueue;
                 self.charset = self.queues[index].charset;
-                getList();
+                
             }
 
             function getList() {
