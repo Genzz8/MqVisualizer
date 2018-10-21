@@ -15,13 +15,11 @@ angular.module('jmsMessageApp')
     ]);
 
     var openSpinner = function() {
-        console.log("Open Spinner")
         $('#loaderWrap').show();
         return;
     }
 
     var closeSpinner = function() {
-        console.log("Close Spinner")
         $('#loaderWrap').hide();
         return;
     }

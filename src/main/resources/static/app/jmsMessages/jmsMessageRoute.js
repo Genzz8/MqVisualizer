@@ -14,7 +14,7 @@ angular.module('jmsMessageApp').
 
         var jmsQueueList = {
             name:'queueList',
-            url:'/test',
+            url:'/queues',
             template: '<queue-list></queue-list>'
 
         }
